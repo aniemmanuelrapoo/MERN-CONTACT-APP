@@ -1,0 +1,14 @@
+{
+  "name": "my-react-udemy-course",
+  "version": "1.0.0",
+  "description": "Contact app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "author": "Rapoo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
