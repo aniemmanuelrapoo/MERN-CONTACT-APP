@@ -1,11 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { contactDetail } from '../../actions/userActions'
 
 const ContactDetails = () => {
+    const dispatch = useDispatch()
+    let { id } = useParams();
+
+    const contactDetails = useSelector(state => state.contactDetails)
+    const { contact, error, loading } = contactDetails
+
+    useEffect(() => {
+        dispatch(contactDetail(id))
+    }, [dispatch, id])
+
     return (
         <div>
-            <h1 className='display-4'>More About This Perosn</h1>
-            <p className='lead'>Simple app to Manage contacts</p>
-            <p className="text-secoundary">Version 1.0.0</p>
+            {loading ? 'loading' : error ? 'error' :(
+                <>
+                <div>
+                    <h1 className='display-4'>Personal Information</h1>
+                    <h2 className='display-6'>Name: {contact.name}</h2>
+                    <p className='lead'>Email: {contact.email}</p>
+                    <p className="text-secoundary">Phone: {contact.phone}</p>
+                    <p className="text-secoundary">User Name: {contact.username}</p>
+                </div>
+                   
+                <div>
+                    <h1 className='display-4'>Address</h1>
+                    <p className="text-secoundary">City: {contact.address.city}</p>
+                    <p className="text-secoundary">Street: {contact.address.street}</p>
+                    <p className="text-secoundary">Suite: {contact.address.suite}</p>
+                    <p className="text-secoundary">Zip Code: {contact.address.zipcode}</p>
+                </div>
+
+                <div>
+                    <h1 className='display-4'>Company</h1>
+                    <p className="text-secoundary">Company Name: {contact.company.name}</p>
+                    <p className="text-secoundary">Catch Phrase: {contact.company.catchPhrase}</p>
+                    <p className="text-secoundary">Website: {contact.website}</p>
+                </div>
+                </>
+            )}
         </div>
     )
 }
