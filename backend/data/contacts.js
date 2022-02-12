@@ -231,4 +231,4 @@ const contacts = [
     }
   ]
 
-module.exports = contacts
+export default contacts
