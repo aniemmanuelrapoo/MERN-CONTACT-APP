@@ -16,7 +16,7 @@ export const listAllContactReducer = (state = { contacts: [] }, action) => {
     }
 }
 
-export const contactDetailsReducer = (state = { contact: { address: { geo: [] }, company: [] } }, action) => {
+export const contactDetailsReducer = (state = { contact: { company: [] } }, action) => {
     switch (action.type) {
         case CONTACT_DETAILS_REQUEST:
             return{ loading: true }

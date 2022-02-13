@@ -16,6 +16,7 @@ export const listContacts = ()  => async (dispatch) => {
         dispatch({ 
             type: CONTACT_LISTALL_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
+            
         })
     }
 }

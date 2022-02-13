@@ -25,21 +25,14 @@ const ContactDetails = () => {
                     <p className="text-secoundary">Phone: {contact.phone}</p>
                     <p className="text-secoundary">User Name: {contact.username}</p>
                 </div>
-                   
-                <div>
-                    <h1 className='display-4'>Address</h1>
-                    <p className="text-secoundary">City: {contact.address.city}</p>
-                    <p className="text-secoundary">Street: {contact.address.street}</p>
-                    <p className="text-secoundary">Suite: {contact.address.suite}</p>
-                    <p className="text-secoundary">Zip Code: {contact.address.zipcode}</p>
-                </div>
-
-                <div>
+                {contact.company.map(cam => 
+                <div key={cam._id}>
                     <h1 className='display-4'>Company</h1>
-                    <p className="text-secoundary">Company Name: {contact.company.name}</p>
-                    <p className="text-secoundary">Catch Phrase: {contact.company.catchPhrase}</p>
+                    <p className="text-secoundary">Company Name: {cam.name}</p>
+                    <p className="text-secoundary">Catch Phrase: {cam.catchPhrase}</p>
                     <p className="text-secoundary">Website: {contact.website}</p>
                 </div>
+                )}
                 </>
             )}
         </div>
