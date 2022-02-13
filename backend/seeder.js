@@ -14,7 +14,29 @@ const importData = async () => {
         await Contact.deleteMany()
 
         await Contact.insertMany(contacts)
+
+        console.log('Data Imported'.green.inverse)
+        process.exit()
     } catch (error) {
-        
+        console.log(`${error}`.red.inverse)
+        process.exit(1)
     }
+}
+
+const destroyData = async () => {
+    try {
+        await Contact.deleteMany()
+
+        console.log('Data Destroyed'.red.inverse)
+        process.exit()
+    } catch (error) {
+        console.log(`${error}`.red.inverse)
+        process.exit(1)
+    }
+}
+
+if(process.argv[2] === '-d'){
+    destroyData()
+}else{
+    importData()
 }
