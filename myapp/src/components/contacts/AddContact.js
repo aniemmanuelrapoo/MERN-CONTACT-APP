@@ -8,6 +8,7 @@ const AddContact = ({ history }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
+    const [username, setUsername] = useState('')
     const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '' })
 
     const onSubmit = (e) => {
@@ -87,8 +88,8 @@ const AddContact = ({ history }) => {
                     label="Username"
                     name="username"
                     placeholder="Enter Username..."
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
                     error={phone === '' && errors.phoneErr}
                 />
 
