@@ -83,6 +83,15 @@ const AddContact = ({ history }) => {
                     error={phone === '' && errors.phoneErr}
                 />
 
+                <TextInputGroup
+                    label="Username"
+                    name="username"
+                    placeholder="Enter Username..."
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    error={phone === '' && errors.phoneErr}
+                />
+
                 <input type="submit" value="Add Contact" className='btn btn-block btn-light' />
             </form>
         </div>
