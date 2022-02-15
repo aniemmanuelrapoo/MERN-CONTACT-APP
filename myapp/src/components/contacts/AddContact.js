@@ -9,7 +9,7 @@ const AddContact = ({ history }) => {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [username, setUsername] = useState('')
-    const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '' })
+    const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '' })
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -27,6 +27,11 @@ const AddContact = ({ history }) => {
 
         if(phone === ''){
             setErrors({...errors, phoneErr: 'Phone is required'});
+            return;
+        }
+
+        if(username === ''){
+            setErrors({...errors, usernameErr: 'Username is required'});
             return;
         }
 
@@ -90,7 +95,7 @@ const AddContact = ({ history }) => {
                     placeholder="Enter Username..."
                     value={username}
                     onChange={e => setUsername(e.target.value)}
-                    error={phone === '' && errors.phoneErr}
+                    error={username === '' && errors.usernameErr}
                 />
 
                 <input type="submit" value="Add Contact" className='btn btn-block btn-light' />
