@@ -9,7 +9,10 @@ const AddContact = ({ history }) => {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [username, setUsername] = useState('')
-    const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '' })
+    const [website, setWebsite] = useState('')
+    const [companyName, setCompanyName] = useState('')
+    const [catchPhrase, setCatchPhrase] = useState('')
+    const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '', websiteErr: '', companyNameErr: '', catchPhraseErr: '' })
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +35,21 @@ const AddContact = ({ history }) => {
 
         if(username === ''){
             setErrors({...errors, usernameErr: 'Username is required'});
+            return;
+        }
+
+        if(website === ''){
+            setErrors({...errors, websiteErr: 'Website is required'});
+            return;
+        }
+
+        if(companyName === ''){
+            setErrors({...errors, companyNameErr: 'CompanyName is required'});
+            return;
+        }
+
+        if(catchPhrase === ''){
+            setErrors({...errors, catchPhraseErr: 'Company Catch Phrase is required'});
             return;
         }
 
@@ -96,6 +114,33 @@ const AddContact = ({ history }) => {
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     error={username === '' && errors.usernameErr}
+                />
+
+                <TextInputGroup
+                    label="Website"
+                    name="website"
+                    placeholder="Enter Website..."
+                    value={website}
+                    onChange={e => setWebsite(e.target.value)}
+                    error={website === '' && errors.websiteErr}
+                />
+
+                <TextInputGroup
+                    label="Company Name"
+                    name="companyName"
+                    placeholder="Enter Company Name..."
+                    value={companyName}
+                    onChange={e => setCompanyName(e.target.value)}
+                    error={companyName === '' && errors.companyNameErr}
+                />
+
+                <TextInputGroup
+                    label="Company Catch Phrase"
+                    name="catchPhrase"
+                    placeholder="Enter Company Catch Phrase..."
+                    value={catchPhrase}
+                    onChange={e => setCatchPhrase(e.target.value)}
+                    error={catchPhrase === '' && errors.catchPhraseErr}
                 />
 
                 <input type="submit" value="Add Contact" className='btn btn-block btn-light' />
