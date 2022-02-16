@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 const TextInputGroup = ({
@@ -27,15 +27,15 @@ const TextInputGroup = ({
 )
 }
 
-TextInputGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    error: PropTypes.string
-}
+// TextInputGroup.propTypes = {
+//     name: PropTypes.string.isRequired,
+//     label: PropTypes.string.isRequired,
+//     type: PropTypes.string.isRequired,
+//     placeholder: PropTypes.string.isRequired,
+//     value: PropTypes.string.isRequired,
+//     onChange: PropTypes.func.isRequired,
+//     error: PropTypes.string
+// }
 
 TextInputGroup.defaultProps = {
     type: 'text'

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextInputGroup from '../layout/TextInputGroup';
 import { withRouter } from 'react-router-dom';
-// import axios from 'axios';
-import { useState } from 'react/cjs/react.development';
+import { useDispatch } from 'react-redux'
+import { createContact } from '../../actions/userActions'
 
 const AddContact = ({ history }) => {
+    const dispatch = useDispatch()
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
@@ -53,30 +55,14 @@ const AddContact = ({ history }) => {
             return;
         }
 
-        // const newContact = {
-        //     name,
-        //     email,
-        //     phone
-        // }
-        // const res = await axios.post('https://jsonplaceholder.typicode.com/users', newContact)
-        // dispatch({ type: 'ADD_CONTACT', payload: res.data })
-        //https://jsonplaceholder.typicode.com/users
-
-        //clear State
-        
-        setName("")
-        setEmail("")
-        setPhone("")
-        setErrors({ nameErr: '', emailErr: '', phoneErr: '' })
+        dispatch(createContact(name, email, phone, username, website, catchPhrase, companyName))
         
         history.push('/');
     }
 
-    // onChange = (e) => this.setState({ [e.target.name]: e.target.value })
-
     return(
         <div className='card mb-3'>
-        <div className="card-header">Add Contact</div>
+        <div className="card-header">Add Contact</div>       
         <div className="card-body">
             <form onSubmit={onSubmit}>
                 <TextInputGroup
