@@ -18,7 +18,8 @@ const getContactsById = asyncHandler(async (req, res) => {
     if(contact){
         res.json(contact)
     }else{
-        res.status(404).json({ message: 'Contact Not Found' })
+        res.status(404)
+        throw new Error('Contact Not Found')
     }
 })
 
