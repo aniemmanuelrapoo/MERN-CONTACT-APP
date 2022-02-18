@@ -61,8 +61,23 @@ const registerContact = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc    delete single contact
+// @routes  GET /api/contacts/:id
+// @access  Public
+const deleteContact = asyncHandler(async (req, res) => {
+    const contact = await Contact.findById(req.params.id)
+    if(contact){
+        await contact.remove()
+        res.json({message: 'Contact Deleted'})
+    }else{
+        res.status(404)
+        throw new Error('Contact Not Found')
+    }
+})
+
 export {
     getContacts,
     getContactsById,
-    registerContact
+    registerContact,
+    deleteContact
 }
