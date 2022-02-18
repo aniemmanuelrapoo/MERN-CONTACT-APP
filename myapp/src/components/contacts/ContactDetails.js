@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { contactDetail } from '../../actions/userActions'
+import Loader from '../layout/Loader'
+import Message from '../layout/Message'
 
 const ContactDetails = () => {
     const dispatch = useDispatch()
@@ -16,7 +18,7 @@ const ContactDetails = () => {
 
     return (
         <div>
-            {loading ? 'loading' : error ? 'error' :(
+            {loading ? <Loader /> : error ? <Message color='red'>{error}</Message> :(
                 <>
                 <div>
                     <h1 className='display-4'>Personal Information</h1>

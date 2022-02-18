@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextInputGroup from '../layout/TextInputGroup';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { createContact } from '../../actions/userActions'
 import Message from '../layout/Message'
+import Loader from '../layout/Loader';
+import { CONTACT_CREATE_RESET } from '../../constant/userConstant';
 
 const AddContact = ({ history }) => {
     const dispatch = useDispatch()
@@ -18,7 +20,14 @@ const AddContact = ({ history }) => {
     const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '', websiteErr: '', companyNameErr: '', catchPhraseErr: '' })
 
     const contactCreate = useSelector(state => state.contactCreate)
-    const { loading, error: contactCreateError } = contactCreate
+    const { loading, error: contactCreateError, contact } = contactCreate
+    
+    useEffect(() => {
+        if(contact){
+            dispatch({type: CONTACT_CREATE_RESET})
+            history.push('/')
+        }
+    }, [contact, history, dispatch])
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -60,15 +69,13 @@ const AddContact = ({ history }) => {
         }
 
         dispatch(createContact(name, email, phone, username, website, catchPhrase, companyName))
-        
-        history.push('/');
     }
 
     return(
         <div className='card mb-3'>
         <div className="card-header">Add Contact</div>
-        {contactCreateError && <Message color='danger'>{contactCreateError}</Message>}
-        {loading && 'Loading'}
+        {contactCreateError && <Message color='red'>{contactCreateError}</Message>}
+        {loading && <Loader />}
         <div className="card-body">
             <form onSubmit={onSubmit}>
                 <TextInputGroup

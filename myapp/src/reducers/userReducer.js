@@ -1,4 +1,4 @@
-import { CONTACT_LISTALL_REQUEST, CONTACT_LISTALL_SUCCESS, CONTACT_LISTALL_FAIL, CONTACT_DETAILS_REQUEST, CONTACT_DETAILS_SUCCESS, CONTACT_DETAILS_FAIL, CONTACT_CREATE_REQUEST, CONTACT_CREATE_SUCCESS, CONTACT_CREATE_FAIL } from "../constant/userConstant";
+import { CONTACT_LISTALL_REQUEST, CONTACT_LISTALL_SUCCESS, CONTACT_LISTALL_FAIL, CONTACT_DETAILS_REQUEST, CONTACT_DETAILS_SUCCESS, CONTACT_DETAILS_FAIL, CONTACT_CREATE_REQUEST, CONTACT_CREATE_SUCCESS, CONTACT_CREATE_FAIL, CONTACT_CREATE_RESET } from "../constant/userConstant";
 
 export const listAllContactReducer = (state = { contacts: [] }, action) => {
     switch (action.type) {
@@ -43,6 +43,8 @@ export const contactCreateReducer = (state = {}, action) => {
         case CONTACT_CREATE_FAIL:
             return{ loading: false, error: action.payload }
             
+        case CONTACT_CREATE_RESET:
+            return {}
         default:
             return state
     }
