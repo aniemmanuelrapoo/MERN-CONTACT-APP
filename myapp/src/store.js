@@ -1,13 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { contactCreateReducer, contactDetailsReducer, listAllContactReducer } from './reducers/userReducer'
+import { contactCreateReducer, contactDeleteReducer, contactDetailsReducer, listAllContactReducer } from './reducers/userReducer'
 
 
 const reducer = combineReducers({
     listAllContact: listAllContactReducer,
     contactDetails: contactDetailsReducer,
-    contactCreate: contactCreateReducer
+    contactCreate: contactCreateReducer,
+    contactDelete: contactDeleteReducer
 })
 
 const initialState = {

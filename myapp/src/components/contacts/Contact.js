@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, onDeleteClick }) => {
     const [showContactInfo, setShowContactInfo] = useState(false)
-
-    const onDeleteClick = async (id) => {
-        // await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-        //  dispatch({type: 'DELETE_CONTACT', payload: id})
-        console.log(contact._id)
-        
-    }
 
     const { _id, name, email, phone } = contact;
 
     return(
         <div className="card card-body mb-3">
             <h4>{name} <i onClick={() => setShowContactInfo(!showContactInfo)} className='fas fa-sort-down' style={{cursor: 'pointer'}}></i>
-            <i className='fas fa-times' style={{cursor: 'pointer', float: 'right', color: 'red'}} onClick={onDeleteClick}></i>
+            <i className='fas fa-times' style={{cursor: 'pointer', float: 'right', color: 'red'}} onClick={() => onDeleteClick(contact._id)}></i>
 
             <Link to={`contact/edit/${_id}`}><i className='fas fa-pencil-alt' style={{cursor: 'pointer', float: 'right', color: 'black', marginRight: '1rem'}}></i></Link>
 
