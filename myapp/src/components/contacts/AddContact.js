@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import TextInputGroup from '../layout/TextInputGroup';
 import { withRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createContact } from '../../actions/userActions'
+import Message from '../layout/Message'
 
 const AddContact = ({ history }) => {
     const dispatch = useDispatch()
@@ -15,6 +16,9 @@ const AddContact = ({ history }) => {
     const [companyName, setCompanyName] = useState('')
     const [catchPhrase, setCatchPhrase] = useState('')
     const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '', websiteErr: '', companyNameErr: '', catchPhraseErr: '' })
+
+    const contactCreate = useSelector(state => state.contactCreate)
+    const { loading, error: contactCreateError } = contactCreate
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -62,7 +66,9 @@ const AddContact = ({ history }) => {
 
     return(
         <div className='card mb-3'>
-        <div className="card-header">Add Contact</div>       
+        <div className="card-header">Add Contact</div>
+        {contactCreateError && <Message color='danger'>{contactCreateError}</Message>}
+        {loading && 'Loading'}
         <div className="card-body">
             <form onSubmit={onSubmit}>
                 <TextInputGroup
