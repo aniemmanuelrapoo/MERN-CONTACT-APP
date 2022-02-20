@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextInputGroup from '../layout/TextInputGroup';
 import { withRouter } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditContact = ({history}) => {
+    const dispatch = useDispatch()
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
@@ -13,18 +15,15 @@ const EditContact = ({history}) => {
     const [catchPhrase, setCatchPhrase] = useState('')
     const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '', websiteErr: '', companyNameErr: '', catchPhraseErr: '' })
 
-    // async componentDidMount() {
-    //     const { id } = this.props.match.params;
-    //     const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    const contactCreate = useSelector(state => state.contactCreate)
+    const { loading, error: contactCreateError, contact } = contactCreate
 
-    //     const contact = res.data;
-
-    //     this.setState({
-    //         name: contact.name,
-    //         email: contact.email,
-    //         phone: contact.phone,
-    //     })
-    // }
+    useEffect(() => {
+        if(contact){
+            // dispatch({type: CONTACT_CREATE_RESET})
+            history.push('/')
+        }
+    }, [contact, history])
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -65,22 +64,7 @@ const EditContact = ({history}) => {
             return;
         }
 
-        // const newContact = {
-        //     name,
-        //     email,
-        //     phone
-        // }
-        // const res = await axios.post('https://jsonplaceholder.typicode.com/users', newContact)
-        // dispatch({ type: 'ADD_CONTACT', payload: res.data })
-
-        //clear State
-        
-        setName("")
-        setEmail("")
-        setPhone("")
-        setErrors({ nameErr: '', emailErr: '', phoneErr: '' })
-        
-        history.push('/');
+        dispatch((name, email, phone, username, website, catchPhrase, companyName))
     }
 
 
