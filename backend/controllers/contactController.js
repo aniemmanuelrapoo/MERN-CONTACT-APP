@@ -62,7 +62,7 @@ const registerContact = asyncHandler(async (req, res) => {
 })
 
 // @desc    delete single contact
-// @routes  GET /api/contacts/:id
+// @routes  DELETE /api/contacts/:id
 // @access  Public
 const deleteContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findById(req.params.id)
@@ -75,9 +75,44 @@ const deleteContact = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc    update a contact
+// @routes  PUT /api/contacts/:id
+// @access  Public
+const updateContact = asyncHandler(async (req, res) => {
+    const contact = await Contact.findById(req.params.id)
+
+    if(contact){
+        contact.name = req.body.name || contact.name
+        contact.email = req.body.email || contact.email
+        contact.phone = req.body.phone || contact.phone
+        contact.username = req.body.username || contact.username
+        contact.website = req.body.website || contact.website
+        contact.company = {
+            name: req.body.company.name || contact.company.name,
+            catchPhrase: req.body.company.catchPhrase || contact.company.catchPhrase
+        }
+
+        const updateContact = await contact.save()
+
+        res.json({
+            _id: updateContact._id,
+            name: updateContact.name,
+            email: updateContact.email,
+            phone: updateContact.phone,
+            website: updateContact.website,
+            username: updateContact.username,
+            company: updateContact.company
+        })
+    }else{
+        res.status(404)
+        throw new Error('Contact Not Found')
+    }
+})
+
 export {
     getContacts,
     getContactsById,
     registerContact,
-    deleteContact
+    deleteContact,
+    updateContact
 }
