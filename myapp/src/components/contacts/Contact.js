@@ -12,9 +12,9 @@ const Contact = ({ contact, onDeleteClick }) => {
             <h4>{name} <i onClick={() => setShowContactInfo(!showContactInfo)} className='fas fa-sort-down' style={{cursor: 'pointer'}}></i>
             <i className='fas fa-times' style={{cursor: 'pointer', float: 'right', color: 'red'}} onClick={() => onDeleteClick(contact._id)}></i>
 
-            <Link to={`contact/edit/${_id}`}><i className='fas fa-pencil-alt' style={{cursor: 'pointer', float: 'right', color: 'black', marginRight: '1rem'}}></i></Link>
+            <Link to={`/contact/edit/${_id}`}><i className='fas fa-pencil-alt' style={{cursor: 'pointer', float: 'right', color: 'black', marginRight: '1rem'}}></i></Link>
 
-            <Link to={`contact/${_id}`}><i className='fa fa-info-circle' style={{cursor: 'pointer', float: 'right', color: 'blue', marginRight: '1rem'}}></i></Link>
+            <Link to={`/contact/${_id}`}><i className='fa fa-info-circle' style={{cursor: 'pointer', float: 'right', color: 'blue', marginRight: '1rem'}}></i></Link>
             </h4>
             {showContactInfo ? (<ul className='list-group'>
                 <li className="list-group-item">Email: {email}</li>

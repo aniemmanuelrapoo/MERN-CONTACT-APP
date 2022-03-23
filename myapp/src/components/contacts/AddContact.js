@@ -74,8 +74,7 @@ const AddContact = ({ history }) => {
     return(
         <div className='card mb-3'>
         <div className="card-header">Add Contact</div>
-        {contactCreateError && <Message color='red'>{contactCreateError}</Message>}
-        {loading && <Loader />}
+        {loading ? <Loader /> : contactCreateError ? <Message color='red'>{contactCreateError}</Message> : (
         <div className="card-body">
             <form onSubmit={onSubmit}>
                 <TextInputGroup
@@ -145,6 +144,7 @@ const AddContact = ({ history }) => {
                 <input type="submit" value="Add Contact" className='btn btn-block btn-light' />
             </form>
         </div>
+        )}
         </div>
     )
     

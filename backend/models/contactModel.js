@@ -38,7 +38,7 @@ const contactSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    company: [companySchema]
+    company: {companySchema}
 }, {
     timestamps: true
 })

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import TextInputGroup from '../layout/TextInputGroup';
-import { withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams, withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { contactDetail, updateContact } from '../../actions/userActions'
+import Message from '../layout/Message'
+import Loader from '../layout/Loader';
+import {CONTACT_UPDATE_RESET } from '../../constant/userConstant';
 
-const EditContact = ({history}) => {
+const EditContact = ({ history }) => {
     const dispatch = useDispatch()
+    let { id } = useParams()
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -15,15 +20,31 @@ const EditContact = ({history}) => {
     const [catchPhrase, setCatchPhrase] = useState('')
     const [errors, setErrors] = useState({ nameErr: '', emailErr: '', phoneErr: '', usernameErr: '', websiteErr: '', companyNameErr: '', catchPhraseErr: '' })
 
-    const contactCreate = useSelector(state => state.contactCreate)
-    const { loading, error: contactCreateError, contact } = contactCreate
+    const contactDetails = useSelector(state => state.contactDetails)
+    const { contact, error, loading } = contactDetails
 
+    const contactUpdate = useSelector(state => state.contactUpdate)
+    const { loading: contactUpdateLoading, error: contactUpdateError, success: contactUpdateSuccess } = contactUpdate
+    
     useEffect(() => {
-        if(contact){
-            // dispatch({type: CONTACT_CREATE_RESET})
-            history.push('/')
+        // if(contactUpdateSuccess){
+        //     dispatch({ type: CONTACT_UPDATE_RESET })
+        //     history.push('/')
+        // }
+        if(!contact.name || contact._id !== id){
+            dispatch(contactDetail(id))
+        } else{
+            setName(contact.name)
+            setEmail(contact.email)
+            setPhone(contact.phone)
+            setUsername(contact.username)
+            setWebsite(contact.website)
+            setCatchPhrase(contact.companyzzzzzzzzzzzzz.catchPhrase)
+            setCompanyName(contact.company.companyName)
         }
-    }, [contact, history])
+    }, [contact, dispatch, id])
+    
+    console.log(contact)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -64,16 +85,18 @@ const EditContact = ({history}) => {
             return;
         }
 
-        dispatch((name, email, phone, username, website, catchPhrase, companyName))
+        dispatch(updateContact({_id: id, name, email, phone, username, website, company:{name: companyName, catchPhrase: catchPhrase}}))
     }
-
 
     return(
         <div className='card mb-3'>
-        <div className="card-header">Edit Contact</div>
+        <div className="card-header">Add Contact</div>
+        {contactUpdateLoading && <Loader />}
+        {contactUpdateError && <Message color='red'>{contactUpdateError}</Message>}
+        {loading ? <Loader /> : error ? <Message color='red'>{error}</Message> : (
         <div className="card-body">
             <form onSubmit={onSubmit}>
-            <TextInputGroup
+                <TextInputGroup
                     label="Name"
                     name="name"
                     placeholder="Enter Name..."
@@ -137,11 +160,13 @@ const EditContact = ({history}) => {
                     error={catchPhrase === '' && errors.catchPhraseErr}
                 />
 
-                <input type="submit" value="Edit Contact" className='btn btn-block btn-light' />
+                <input type="submit" value="Add Contact" className='btn btn-block btn-light' />
             </form>
         </div>
+        )}
         </div>
     )
+    
 }
 
 export default withRouter(EditContact);
